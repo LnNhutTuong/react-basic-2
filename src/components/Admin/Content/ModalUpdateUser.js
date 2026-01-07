@@ -34,7 +34,6 @@ const ModalUpdateUser = (props) => {
   const [previewimg, setPreviewimg] = useState(``);
 
   useEffect(() => {
-    console.log("ai di turoc");
     if (!_.isEmpty(dataupdate)) {
       // setShow(false);
       setEmail(dataupdate.email);
@@ -68,7 +67,7 @@ const ModalUpdateUser = (props) => {
     }
 
     let data = await putUpdateUser(dataupdate.id, username, role, image);
-    console.log(">>>>component res:", data);
+
     if (data && data.EC == 0) {
       toast.success("Update a new user success!");
       handleClose();
@@ -79,7 +78,6 @@ const ModalUpdateUser = (props) => {
     }
   };
 
-  console.log(">>>>>DATA:", props.dataupdate);
   return (
     <>
       {/* <Button variant="primary" onClick={handleShow}>
