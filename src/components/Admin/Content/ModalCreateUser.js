@@ -1,9 +1,10 @@
 import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import kienom from "../../../assets/img/sleepingboy.png";
+``;
 import { FcPlus } from "react-icons/fc";
 import axios from "axios";
+import { ToastContainer, toast, Flip } from "react-toastify";
 
 const ModalCreateUser = (props) => {
   const { show, setShow } = props;
@@ -38,16 +39,31 @@ const ModalCreateUser = (props) => {
     }
   };
 
-  const handleSubmit = async () => {
-    //call apis
-    // let data = {
-    //   email: email,
-    //   password: password,
-    //   username: username,
-    //   role: role,
-    //   userImage: image,
-    // };
+  const validateEmail = (email) => {
+    return email.match(
+      /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    );
+  };
 
+  const handleSubmit = async () => {
+    //validate
+    const isValidEmail = validateEmail(email);
+    if (!isValidEmail) {
+      toast.error("Invalid email");
+      return;
+    }
+
+    if (!password) {
+      toast.error("Invalid password");
+      return;
+    }
+
+    if (!username) {
+      toast.error("Invalid username");
+      return;
+    }
+
+    //call apis
     const data = new FormData();
     data.append(`email`, email);
     data.append(`password`, password);
