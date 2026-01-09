@@ -29,4 +29,14 @@
       //   color: black;
     }
   }
+
+  .btn-goback {
+    opacity: 0.8;
+    color: white;
+    text-decoration: underline;
+    border: none;
+    &:hover {
+      color: aqua;
+    }
+  }
 }

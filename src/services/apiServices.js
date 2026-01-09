@@ -46,6 +46,13 @@ const putViewUser = (id, username, role, image) => {
   return axios.put(`/api/v1/participant`, data);
 };
 
+const postLogin = (email, password) => {
+  return axios.post(`/api/v1/login`, {
+    email,
+    password,
+  });
+};
+
 export {
   postCreateNewUser,
   getAllUser,
@@ -53,4 +60,5 @@ export {
   deleteUser,
   getUserWithPaginate,
   putViewUser,
+  postLogin,
 };

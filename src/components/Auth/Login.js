@@ -11,12 +11,31 @@ import {
   MDBInput,
   MDBIcon,
 } from "mdb-react-ui-kit";
+
+import { useNavigate } from "react-router-dom";
+import { postLogin } from "../../services/apiServices";
+import { ToastContainer, toast, Flip } from "react-toastify";
 const Login = (props) => {
   const [email, setEmail] = useState(``);
   const [password, setPassword] = useState(``);
+  const navigate = new useNavigate();
 
-  const handleLogin = () => {
-    alert(`oks`);
+  const handleLogin = async () => {
+    //validate
+
+    //APIS
+    let data = await postLogin(email, password);
+    if (data && data.EC == 0) {
+      toast.success(data.EM);
+      navigate(`/`);
+    }
+    if (data && data.EC !== 0) {
+      toast.error(data.EM);
+    }
+  };
+
+  const handleGoBack = () => {
+    navigate(`/`);
   };
   return (
     <div className="login-container container mx-auto">
@@ -43,16 +62,22 @@ const Login = (props) => {
                   <MDBInput
                     wrapperClass="mb-4 mx-5 w-100"
                     label="Email address"
-                    id="formControlLg"
                     type="email"
                     size="lg"
+                    value={email}
+                    onChange={(event) => {
+                      setEmail(event.target.value);
+                    }}
                   />
                   <MDBInput
                     wrapperClass="mb-4 mx-5 w-100"
                     label="Password"
-                    id="formControlLg"
                     type="password"
                     size="lg"
+                    value={password}
+                    onChange={(event) => {
+                      setPassword(event.target.value);
+                    }}
                   />
 
                   <p className="small mb-3 pb-lg-2">
@@ -62,8 +87,16 @@ const Login = (props) => {
                   </p>
 
                   <div>
-                    <button className="btn-login mb-3">Login</button>
+                    <button
+                      className="btn-login mb-3"
+                      onClick={() => {
+                        handleLogin();
+                      }}
+                    >
+                      Login
+                    </button>
                   </div>
+
                   <div>
                     <p className="mb-0">
                       Don't have an account?{" "}
@@ -72,6 +105,15 @@ const Login = (props) => {
                       </a>
                     </p>
                   </div>
+
+                  <span
+                    class="btn btn-goback"
+                    onClick={() => {
+                      handleGoBack();
+                    }}
+                  >
+                    &#60;&#60; Go back!
+                  </span>
                 </MDBCardBody>
               </MDBCard>
             </MDBCol>
