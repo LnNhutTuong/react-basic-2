@@ -1,5 +1,5 @@
-import { useState } from "react";
-import "../../assets/styles/Auth/Login.scss";
+import { useState, useEffect } from "react";
+import "../../assets/styles/Auth/SignUp.scss";
 import Logo from "../../assets/img/logo.png";
 import {
   MDBBtn,
@@ -12,39 +12,83 @@ import {
   MDBIcon,
 } from "mdb-react-ui-kit";
 import { useNavigate } from "react-router-dom";
-import { postLogin } from "../../services/apiServices";
+import { postSignUp } from "../../services/apiServices";
 import { ToastContainer, toast, Flip } from "react-toastify";
 
-const Login = (props) => {
+const SignUp = () => {
   const [email, setEmail] = useState(``);
-  const [password, setPassword] = useState(``);
+  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
+
   const navigate = new useNavigate();
 
-  const handleLogin = async () => {
-    //APIS
-    let data = await postLogin(email, password);
+  useEffect(() => {
+    const preventScroll = (event) => event.preventDefault();
+
+    window.addEventListener("wheel", preventScroll, { passive: false });
+    window.addEventListener("wheel", preventScroll, { passive: false });
+    window.addEventListener("touchmove", preventScroll, { passive: false });
+
+    return () => {
+      window.removeEventListener("wheel", preventScroll);
+      window.removeEventListener("touchmove", preventScroll);
+    };
+  }, []);
+
+  const handleSignUp = async () => {
+    //Validate
+    const validateEmail = (email) => {
+      return email.match(
+        /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      );
+    };
+
+    const isValidEmail = validateEmail(email);
+    if (!isValidEmail) {
+      toast.error("Invalid email");
+      return;
+    }
+
+    if (!username) {
+      toast.error("Invalid username");
+      return;
+    }
+
+    // if (username.trim == NULL) {
+    //   toast.error("Minimum 8 characters");
+    //   return;
+    // }
+    if (!password || password.trim().length < 8) {
+      toast.error("Password is minimum 8 characters");
+      return;
+    }
+
+    //APIs
+    const data = await postSignUp(email, username, password);
+
     if (data && data.EC == 0) {
-      toast.success(data.EM);
-      navigate(`/`);
+      toast.success("Welcome to XimenT!");
+      navigate(`/login`);
     }
     if (data && data.EC !== 0) {
-      toast.error(data.EM);
+      toast.error("Email are ready exits!");
     }
   };
 
-  const handleSignUp = () => {
-    navigate(`/signup`);
-  };
   const handleGoBack = () => {
     navigate(`/`);
   };
 
+  const handleLogin = () => {
+    navigate(`/login`);
+  };
+
   return (
-    <div className="login-container container mx-auto">
+    <div className="signup-container container mx-auto">
       <div className="header">
         {/* <div className="logo">
-          <img src={Logo} alt="logo" />
-        </div> */}
+              <img src={Logo} alt="logo" />
+            </div> */}
         <div className="name">XimenT</div>
       </div>
       <div className="form-content col-4 mx-auto">
@@ -56,9 +100,9 @@ const Login = (props) => {
                 style={{ borderRadius: "1rem", maxWidth: "400px" }}
               >
                 <MDBCardBody className="p-5 d-flex flex-column align-items-center mx-auto w-100">
-                  <h2 className="fw-bold mb-2 text-uppercase">Login</h2>
+                  <h2 className="fw-bold mb-2 text-uppercase">Sign Up</h2>
                   <p className="text-white-50 mb-5">
-                    Please enter your login and password!
+                    Please enter your email, password and username!
                   </p>
 
                   <MDBInput
@@ -73,6 +117,16 @@ const Login = (props) => {
                   />
                   <MDBInput
                     wrapperClass="mb-4 mx-5 w-100"
+                    label="Username"
+                    type="text"
+                    size="lg"
+                    value={username}
+                    onChange={(event) => {
+                      setUsername(event.target.value);
+                    }}
+                  />
+                  <MDBInput
+                    wrapperClass="mb-4 mx-5 w-100"
                     label="Password"
                     type="password"
                     size="lg"
@@ -82,33 +136,27 @@ const Login = (props) => {
                     }}
                   />
 
-                  <p className="small mb-3 pb-lg-2">
-                    <a class="text-white-50" href="#!">
-                      Forgot password?
-                    </a>
-                  </p>
-
                   <div>
                     <button
                       className="btn-login mb-3"
                       onClick={() => {
-                        handleLogin();
+                        handleSignUp();
                       }}
                     >
-                      Login
+                      Sign up
                     </button>
                   </div>
 
                   <div>
                     <p className="mb-0">
-                      Don't have an account?{" "}
+                      You have an account?
                       <a
-                        class="singup"
+                        class="login"
                         onClick={() => {
-                          handleSignUp();
+                          handleLogin();
                         }}
                       >
-                        Sign Up
+                        Login
                       </a>
                     </p>
                   </div>
@@ -131,4 +179,4 @@ const Login = (props) => {
   );
 };
 
-export default Login;
+export default SignUp;
