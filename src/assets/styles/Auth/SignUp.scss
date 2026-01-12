@@ -23,6 +23,58 @@ body {
       font-weight: 600;
     }
   }
+
+  .btn-signup {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    width: 145px;
+    height: 47px;
+    font-size: 16px;
+    border: 1px solid rgb(255, 255, 255);
+    color: rgb(255, 255, 255);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+    &:disabled,
+    &[disabled] {
+      border: 1px solid #999999;
+      background-color: #cccccc;
+      color: #666666;
+      cursor: not-allowed;
+    }
+
+    .loader {
+      width: 20px; /* Kích thước loader vừa vặn với chữ */
+      height: 20px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 1s infinite linear;
+    }
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.289);
+    }
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  .btn-goback {
+    opacity: 0.8;
+    color: white;
+    text-decoration: underline;
+    border: none;
+    &:hover {
+      color: aqua;
+    }
+  }
   .btn-goback {
     opacity: 0.8;
     color: white;

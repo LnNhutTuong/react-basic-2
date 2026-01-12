@@ -15,6 +15,8 @@ import { useNavigate } from "react-router-dom";
 import { postLogin } from "../../services/apiServices";
 import { ToastContainer, toast, Flip } from "react-toastify";
 import { useDispatch } from "react-redux";
+import { doLogin } from "../../redux/action/userAction";
+import { ImSpinner2 } from "react-icons/im";
 
 const Login = (props) => {
   const [email, setEmail] = useState(``);
@@ -26,7 +28,7 @@ const Login = (props) => {
     //APIS
     let data = await postLogin(email, password);
     if (data && data.EC == 0) {
-      dispatch({});
+      dispatch(doLogin(data));
       toast.success(data.EM);
       navigate(`/`);
     }
@@ -93,12 +95,14 @@ const Login = (props) => {
 
                   <div>
                     <button
-                      className="btn-login mb-3"
+                      disabled
+                      className="btn btn-login mb-3"
                       onClick={() => {
                         handleLogin();
                       }}
                     >
-                      Login
+                      <ImSpinner2 className="loader" />
+                      <span>Login</span>
                     </button>
                   </div>
 

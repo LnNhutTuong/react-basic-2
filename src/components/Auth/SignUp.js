@@ -14,6 +14,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { postSignUp } from "../../services/apiServices";
 import { ToastContainer, toast, Flip } from "react-toastify";
+import { ImSpinner2 } from "react-icons/im";
 
 const SignUp = () => {
   const [email, setEmail] = useState(``);
@@ -138,11 +139,13 @@ const SignUp = () => {
 
                   <div>
                     <button
-                      className="btn-login mb-3"
+                      disabled
+                      className="btn btn-signup mb-3"
                       onClick={() => {
                         handleSignUp();
                       }}
                     >
+                      <ImSpinner2 className="loader" />
                       Sign up
                     </button>
                   </div>
