@@ -137,7 +137,7 @@ const SignUp = () => {
                     }}
                   />
 
-                  <div>
+                  <div className="button-signup">
                     <button
                       disabled
                       className="btn btn-signup mb-3"

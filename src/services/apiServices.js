@@ -46,10 +46,11 @@ const putViewUser = (id, username, role, image) => {
   return axios.put(`/api/v1/participant`, data);
 };
 
-const postLogin = (email, password) => {
+const postLogin = (email, password, delay) => {
   return axios.post(`/api/v1/login`, {
     email,
     password,
+    delay: 3000,
   });
 };
 

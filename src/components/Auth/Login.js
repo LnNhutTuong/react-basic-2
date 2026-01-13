@@ -23,17 +23,22 @@ const Login = (props) => {
   const [password, setPassword] = useState(``);
   const navigate = new useNavigate();
   const dispatch = new useDispatch();
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleLogin = async () => {
+    setIsLoading(true);
     //APIS
     let data = await postLogin(email, password);
     if (data && data.EC == 0) {
       dispatch(doLogin(data));
       toast.success(data.EM);
-      navigate(`/`);
+      setIsLoading(false);
+
+      // navigate(`/`);
     }
     if (data && data.EC !== 0) {
       toast.error(data.EM);
+      setIsLoading(false);
     }
   };
 
@@ -93,15 +98,16 @@ const Login = (props) => {
                     </a>
                   </p>
 
-                  <div>
+                  <div className="button-login">
                     <button
-                      disabled
+                      disabled={isLoading}
                       className="btn btn-login mb-3"
                       onClick={() => {
                         handleLogin();
                       }}
                     >
-                      <ImSpinner2 className="loader" />
+                      {isLoading === true && <ImSpinner2 className="loader" />}
+
                       <span>Login</span>
                     </button>
                   </div>
