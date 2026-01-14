@@ -9,7 +9,14 @@ import Dashboard from "./components/Admin/Content/Dashboard";
 import ManageUser from "./components/Admin/Content/ManageUser";
 import Login from "./components/Auth/Login";
 import SignUp from "./components/Auth/SignUp";
-import ListQuiz from "./components/User/ListQuiz";
+import ListQuiz from "./components/User/Quiz/ListQuiz";
+import DetailQuiz from "./components/User/Quiz/DetailQuiz";
+
+const NotFound = () => {
+  return (
+    <div className="container mt-5 alert alert-danger">404 Not Foud. :(</div>
+  );
+};
 
 const Layout = (props) => {
   return (
@@ -19,12 +26,14 @@ const Layout = (props) => {
           <Route index element={<HomePage />} />
           <Route path="user" element={<ListQuiz />} />
         </Route>
+        <Route path="quiz/:id" element={<DetailQuiz />} />
         <Route path="admin" element={<Admin />}>
           <Route index element={<Dashboard />} />
           <Route path="manage-user" element={<ManageUser />} />
         </Route>
         <Route path="login" element={<Login />}></Route>
         <Route path="signup" element={<SignUp />}></Route>
+        <Route path="*" element={<NotFound />}></Route>
       </Routes>
 
       <ToastContainer
