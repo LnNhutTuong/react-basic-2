@@ -1,5 +1,5 @@
 import { data } from "react-router-dom";
-import axios from "../utils/axiosCustomize";
+import axios from "../axiosCustomize";
 
 const postCreateNewUser = (email, password, username, role, image) => {
   const data = new FormData();
@@ -46,25 +46,6 @@ const putViewUser = (id, username, role, image) => {
   return axios.put(`/api/v1/participant`, data);
 };
 
-const postLogin = (email, password, delay) => {
-  return axios.post(`/api/v1/login`, {
-    email,
-    password,
-    delay: 3000,
-  });
-};
-
-const postSignUp = (email, username, password) => {
-  return axios.post(`/api/v1/register`, {
-    email,
-    username,
-    password,
-  });
-};
-
-const getQuizByUsers = () => {
-  return axios.get(`/api/v1/quiz-by-participant`);
-};
 export {
   postCreateNewUser,
   getAllUser,
@@ -72,7 +53,4 @@ export {
   deleteUser,
   getUserWithPaginate,
   putViewUser,
-  postLogin,
-  postSignUp,
-  getQuizByUsers,
 };

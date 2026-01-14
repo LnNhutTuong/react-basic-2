@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getQuizByUsers } from "../../services/apiServices";
+import { getQuizByUsers } from "../../API/services/quiz.service";
 
 const ListQuiz = (props) => {
   const [arrayQuiz, setArrayQuiz] = useState(``);
@@ -10,7 +10,7 @@ const ListQuiz = (props) => {
 
   const getQuizData = async () => {
     const data = await getQuizByUsers();
-    console.log(">>>check data user: ", data);
+    console.log(">>>Total Quiz: ", data.DT);
 
     if (data && data.EC === 0) {
       setArrayQuiz(data.DT);

@@ -12,7 +12,7 @@ import {
   MDBIcon,
 } from "mdb-react-ui-kit";
 import { useNavigate } from "react-router-dom";
-import { postSignUp } from "../../services/apiServices";
+import { postSignUp } from "../../API/services/auth.service";
 import { ToastContainer, toast, Flip } from "react-toastify";
 import { ImSpinner2 } from "react-icons/im";
 

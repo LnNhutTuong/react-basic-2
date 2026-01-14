@@ -4,7 +4,7 @@ import Modal from "react-bootstrap/Modal";
 import { FcPlus } from "react-icons/fc";
 import axios from "axios";
 import { ToastContainer, toast, Flip } from "react-toastify";
-import { postCreateNewUser } from "../../../services/apiServices";
+import { postCreateNewUser } from "../../../API/services/admin.service";
 
 const ModalCreateUser = (props) => {
   const { show, setShow, currentPage } = props;

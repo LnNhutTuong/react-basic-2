@@ -12,7 +12,7 @@ import {
   MDBIcon,
 } from "mdb-react-ui-kit";
 import { useNavigate } from "react-router-dom";
-import { postLogin } from "../../services/apiServices";
+import { postLogin } from "../../API/services/auth.service";
 import { ToastContainer, toast, Flip } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { doLogin } from "../../redux/action/userAction";

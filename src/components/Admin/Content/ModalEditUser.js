@@ -4,7 +4,7 @@ import Modal from "react-bootstrap/Modal";
 import { FcPlus } from "react-icons/fc";
 import axios from "axios";
 import { ToastContainer, toast, Flip } from "react-toastify";
-import { putUpdateUser } from "../../../services/apiServices";
+import { putUpdateUser } from "../../../API/services/admin.service";
 import _ from "lodash";
 
 const ModalUpdateUser = (props) => {
