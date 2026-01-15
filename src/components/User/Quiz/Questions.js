@@ -1,4 +1,5 @@
 import _ from "lodash";
+import { data } from "react-router-dom";
 const Questions = (props) => {
   const { dataQues, index } = props;
 
@@ -8,13 +9,21 @@ const Questions = (props) => {
 
   const answer = dataQues.answer;
 
+  const handleChoose = (answer, aId, qId) => {
+    console.log(">>data pros: ", aId, qId);
+    props.handleChoosen(aId, qId);
+  };
   return (
     <>
       <div className="ques-img">
-        <img
-          src={`data: image/jpeg;base64,${dataQues.imageQuestion}`}
-          alt="ques-image"
-        />
+        {dataQues.imageQuestion ? (
+          <img
+            src={`data: image/jpeg;base64,${dataQues.imageQuestion}`}
+            alt="ques-image"
+          />
+        ) : (
+          <></>
+        )}
       </div>
       <div className="question">
         Question {index + 1}: {dataQues.questionDescription}
@@ -25,7 +34,17 @@ const Questions = (props) => {
           answer.map((item, index) => {
             return (
               <div className="answer">
-                <div key={`${index}-quiz`} className="choose">
+                <div
+                  key={`${index}-quiz`}
+                  className="choose"
+                  onClick={() => {
+                    handleChoose(
+                      String.fromCharCode(64 + item.id),
+                      item.id,
+                      dataQues.id
+                    );
+                  }}
+                >
                   {String.fromCharCode(65 + index)}.
                 </div>
                 <div className="description">{item.description}</div>

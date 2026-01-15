@@ -29,19 +29,37 @@ const DetailQuiz = (props) => {
               questionDescription = item.description;
               imageQuestion = item.image;
             }
+            item.answers.isSelected = false;
             answer.push(item.answers);
           });
 
           return { id: key, answer, questionDescription, imageQuestion };
         })
         .value();
+      console.log(data);
       setDataQues(data);
     }
   };
 
+  const handleChoosen = (answerId, quesId) => {
+    let dataQuesClone = _.cloneDeep(dataQues);
+    let question = dataQuesClone.find((item) => +item.id === +quesId);
+    if (question) {
+      console.log("ques: ", question);
+    }
+  };
   useEffect(() => {
     fetchQuestion();
   }, [id]);
+
+  const handlePrev = () => {
+    if (index - 1 < 0) return;
+    setIndex(index - 1);
+  };
+
+  const handleNext = () => {
+    if (dataQues && dataQues.length > index + 1) setIndex(index + 1);
+  };
 
   return (
     <div className="detail-quiz-container container">
@@ -54,12 +72,27 @@ const DetailQuiz = (props) => {
           <Questions
             index={index}
             dataQues={dataQues && dataQues.length > 0 ? dataQues[index] : []}
+            handleChoosen={handleChoosen}
           />
         </div>
 
         <div className="question-footer">
-          <button className="btn-prev">Prev</button>
-          <button className="btn-next">Next</button>
+          <button
+            className="btn-prev"
+            onClick={() => {
+              handlePrev();
+            }}
+          >
+            Prev
+          </button>
+          <button
+            className="btn-next"
+            onClick={() => {
+              handleNext();
+            }}
+          >
+            Next
+          </button>
         </div>
       </div>
 

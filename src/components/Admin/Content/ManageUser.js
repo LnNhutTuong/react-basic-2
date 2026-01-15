@@ -75,11 +75,6 @@ const ManageUser = (props) => {
             </button>
           </div>
           <div className="table-add-newuser">
-            {/* <TableUser
-              listuser={listuser}
-              handleBtnEditUser={handleBtnEditUser}
-              handleBtnDeleteUser={handleBtnDeleteUser}
-            /> */}
             <TableUserPaginate
               listuser={listuser}
               // seccond
